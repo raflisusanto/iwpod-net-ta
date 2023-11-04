@@ -172,6 +172,7 @@ if __name__ == '__main__':
 	#
 	model.compile(
 	    loss = iwpodnet_loss,
+		metrics = ["accuracy"],
 	    optimizer = opt,
 	    )
   
@@ -187,6 +188,8 @@ if __name__ == '__main__':
 
 	# -> Learning rate control -- can also reduce learning rate dynamically		
 	learn_control = LearningRateScheduler(lr_scheduler(ChangeEpoch = MaxEpochs//3, initial_lr =  learning_rate))
+	tensorboard = tf.keras.callbacks.TensorBoard(log_dir='./logs')
+	csv_logger = tf.keras.callbacks.CSVLogger('training.log', separator=",", append=True)
 		  
 	      
 	# -> early stopping criteria -- not currently used		
@@ -203,7 +206,7 @@ if __name__ == '__main__':
 	                      steps_per_epoch = np.floor(len(Data)/batch_size),
 	                      epochs = MaxEpochs, 
 	                      verbose = 1,
-	                      callbacks=[learn_control, ckpt])  
+	                      callbacks=[learn_control, ckpt, tensorboard, csv_logger])  
 
 
 	print('Finished to train the model')
