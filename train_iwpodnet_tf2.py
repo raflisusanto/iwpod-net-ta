@@ -172,7 +172,6 @@ if __name__ == '__main__':
 	#
 	model.compile(
 	    loss = iwpodnet_loss,
-		metrics = ["accuracy"],
 	    optimizer = opt,
 	    )
   
