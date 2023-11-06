@@ -6,8 +6,10 @@ from src.keras_utils import detect_lp_width
 from src.utils import im2single
 from src.drawing_utils import draw_losangle
 import argparse
+import time
 
 if __name__ == '__main__':
+    start = time.time()
     parser = argparse.ArgumentParser()
     parser.add_argument('-i', '--input_folder', type=str, required=True, help='Input folder containing images')
     parser.add_argument('-v', '--vtype', type=str, default='fullimage', help='Image type (car, truck, bus, bike, or fullimage)')
@@ -66,3 +68,6 @@ if __name__ == '__main__':
         # cv2.imshow('Image and LPs', Ivehicle)
         # cv2.waitKey()
         # cv2.destroyAllWindows()
+    end = time.time()
+    total_time = end - start
+    print(f"Total time: {total_time}")
