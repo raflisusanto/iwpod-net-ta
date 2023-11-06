@@ -7,7 +7,7 @@ from src.utils import im2single
 from src.drawing_utils import draw_losangle
 import argparse
 
-if __name__ == '__main':
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-i', '--input_folder', type=str, required=True, help='Input folder containing images')
     parser.add_argument('-v', '--vtype', type=str, default='fullimage', help='Image type (car, truck, bus, bike, or fullimage)')
@@ -24,6 +24,7 @@ if __name__ == '__main':
     # Iterate through images in the input folder
     image_files = os.listdir(args.input_folder)
     for image_file in image_files:
+        print(image_file)
         image_path = os.path.join(args.input_folder, image_file)
 
         # Loads image with vehicle crop or full image with vehicle(s) roughly framed.
@@ -51,13 +52,15 @@ if __name__ == '__main':
         Llp, LlpImgs, _ = detect_lp_width(iwpod_net, im2single(Ivehicle), WPODResolution * ASPECTRATIO, 2 ** 4,
                                           lp_output_resolution, lp_threshold)
         for i, img in enumerate(LlpImgs):
+            print("Rectifying...")
             # Draws LP quadrilateral in input image
             pts = Llp[i].pts * iwh
             draw_losangle(Ivehicle, pts, color=(0, 0, 255.), thickness=2)
 
             # Shows each detected LP
             # cv2.imshow('Rectified plate %d' % i, img)
-            cv2.imwrite(f"rectified_iwpod_{image_file}")
+            img = cv2.convertScaleAbs(img, alpha=(255.0))
+            cv2.imwrite(f"results/rectified_iwpod_{image_file}", img)
 
         # Shows original image with detected plates (quadrilateral)
         # cv2.imshow('Image and LPs', Ivehicle)

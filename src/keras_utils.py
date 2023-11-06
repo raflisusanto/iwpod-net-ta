@@ -27,7 +27,8 @@ def load_model(path,custom_objects={},verbose=0):
 	with open('%s.json' % path,'r') as json_file:
 		model_json = json_file.read()
 	model = model_from_json(model_json, custom_objects=custom_objects)
-	model.load_weights('%s.h5' % path)
+	# model.load_weights('%s.h5' % path)
+	model.load_weights('weights/ta_rafli_bismillah_epoch7500.h5')
 	if verbose: print('Loaded from %s' % path)
 	return model
 
