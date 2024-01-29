@@ -1,3 +1,10 @@
+# For Rafli's Tugas Akhir Program Running Purpose
+I modified the code to best fit my needs. If you want to try training your own model, use the code in the original paper readme below. Then to test it, you just simply run
+
+```
+python example_plate_detection_rapliver.py --input_folder test_images --vtype fullimage 
+```
+
 # ALPR Using an Improved Warped Planar Object Detection Network (IWPOD-NET)
 
 This repository contains the author's implementation of the paper "A Flexible Approach for Automatic License Plate Recognition in Unconstrained Scenarios", published in the journal IEEE Transactions on Intelligent Transportation Systems. If you use this repository, you must cite the paper:
